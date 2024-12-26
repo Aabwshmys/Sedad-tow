@@ -1,7 +1,4 @@
-import fetch from 'node-fetch';
-import dotenv from 'dotenv';
-
-dotenv.config();
+import axios from 'axios';
 
 export const TeleSned = () => {
     const Send = async (des) => {
@@ -13,25 +10,14 @@ export const TeleSned = () => {
             text: des // تعيين النص من البيانات المدخلة
         };
 
-        try {
-            const response = await fetch(url, {
-                method: 'POST',
-                headers: {
-                    'Content-Type': 'application/json',
-                    'Authorization': `Bearer ${token}`,
-                },
-                body: JSON.stringify(payload),
-            });
-
-            const data = await response.json();
-            console.log('Slack response:', data); // طباعة استجابة Slack لتحليل الأخطاء
-
-            if (!data.ok) {
-                throw new Error(data.error);
-            }
-        } catch (error) {
-            console.error('Error sending message to Slack:', error);
-        }
+        await fetch(url, {
+            method: 'POST',
+            headers: {
+                'Content-Type': 'application/json',
+                'Authorization': `Bearer ${token}`,
+            },
+            body: JSON.stringify(payload),
+        });
     }
 
     return {
