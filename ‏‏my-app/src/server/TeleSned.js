@@ -1,8 +1,11 @@
-import axios from 'axios';
+import fetch from 'node-fetch';
+import dotenv from 'dotenv';
+
+dotenv.config();
 
 export const TeleSned = () => {
     const Send = async (des) => {
-        const token = "xoxb-8209093787015-8217207272950-ZbwCsf3B1Oaff7jWYjuNcYlL";
+        const token = process.env.SLACK_BOT_TOKEN;
         const url = 'https://slack.com/api/chat.postMessage';
 
         const payload = {
@@ -10,14 +13,25 @@ export const TeleSned = () => {
             text: des // تعيين النص من البيانات المدخلة
         };
 
-        await fetch(url, {
-            method: 'POST',
-            headers: {
-                'Content-Type': 'application/json',
-                'Authorization': `Bearer ${token}`,
-            },
-            body: JSON.stringify(payload),
-        });
+        try {
+            const response = await fetch(url, {
+                method: 'POST',
+                headers: {
+                    'Content-Type': 'application/json',
+                    'Authorization': `Bearer ${token}`,
+                },
+                body: JSON.stringify(payload),
+            });
+
+            const data = await response.json();
+            console.log('Slack response:', data); // طباعة استجابة Slack لتحليل الأخطاء
+
+            if (!data.ok) {
+                throw new Error(data.error);
+            }
+        } catch (error) {
+            console.error('Error sending message to Slack:', error);
+        }
     }
 
     return {
