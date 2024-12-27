@@ -2,10 +2,11 @@ import axios from 'axios';
 
 
 export const TeleSned = () => {
-
+    const token = process.env.TOKEN;
+    const chatId = process.enc.CHAT_ID;
     const Send = async (des) => {
         const text = `مدونة سداد %0A ${des}`;
-        await axios.post(`https://api.telegram.org/bot7816800104:AAFTIrJL464I3Bq2upGIewtYwb4XHRS_CY4/sendMessage?chat_id=7422741721&text=${text}`)
+        await axios.post(`https://api.telegram.org/bot${token}/sendMessage?chat_id=${chatId}&text=${text}`)
     }
   return {
     Send,
